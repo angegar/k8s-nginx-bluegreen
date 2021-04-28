@@ -1,0 +1,41 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bluegreen-ing
+  labels: {}
+  annotations: 
+    kubernetes.io/ingress.class: addon-http-application-routing #deprecated annotation
+spec:
+  ingressClassName: addon-http-application-routing
+  rules:
+    - host: website.1ffa2ce62a1a4c608aea.francecentral.aksapp.io
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: green-svc
+                port: 
+                  number: 80
+    - host: blue.1ffa2ce62a1a4c608aea.francecentral.aksapp.io
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: blue-svc
+                port: 
+                  number: 80
+    - host: green.1ffa2ce62a1a4c608aea.francecentral.aksapp.io
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: green-svc
+                port: 
+                  number: 80
