@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: production
+spec:
+  type: ExternalName
+  externalName: {{ .Values.productionBackend }}
+  ports:
+  - port: 80
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: staging
+spec:
+  type: ExternalName
+  externalName: {{ .Values.stagingBackend }}
+  ports:
+  - port: 80

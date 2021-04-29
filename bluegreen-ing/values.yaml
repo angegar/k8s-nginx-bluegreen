@@ -1,0 +1,31 @@
+
+service:
+  # type: ClusterIP
+  port: 80
+
+productionBackend: bluegreen.blue.svc.cluster.local
+stagingBackend: bluegreen.green.svc.cluster.local
+
+ingress:
+  enabled: true
+  annotations: 
+      kubernetes.io/ingress.class: addon-http-application-routing 
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: production.1ffa2ce62a1a4c608aea.francecentral.aksapp.io
+      paths:
+      - path: /
+        backend:
+          serviceName: production
+          servicePort: 80
+    - host: staging.1ffa2ce62a1a4c608aea.francecentral.aksapp.io
+      paths:
+      - path: /
+        backend:
+          serviceName: staging
+          servicePort: 80
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
